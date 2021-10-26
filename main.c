@@ -9,7 +9,7 @@
 int main()
 {
 	char cmd[100], command[100], *parameters[20];
-	// env var
+	//env var
 	char *envp[] = { (char *) "PATH=/bin", 0 };
 	while ( 1 ) {
 	type_prompt();

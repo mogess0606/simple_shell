@@ -4,12 +4,12 @@ void type_prompt()
 {
 static int first_time = 1;
 
- if (first_time) { //clear screen for the first time
+ if (first_time) { 
    const char* CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
-   write (STDOUT_FILECO, CLEAR_SCREEN_ANSI,12)
+   write (STDOUT_FILENO, CLEAR_SCREEN_ANSI,12)
      first_tine = 0;
  }
 
- print("$"); //display prompt
+ print("$"); 
 
 }

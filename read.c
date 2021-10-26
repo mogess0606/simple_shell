@@ -13,7 +13,7 @@ line[count ++] = (char) c;
 if (c =='\n') break;
 }
 if (count == 1) return;
-phc = strtok (line, "\n" );
+pch = strtok (line, "\n" );
 
 /* parse the line into two words */
 

@@ -1,4 +1,4 @@
-#iclude "shell.h"
+#include "shell.h"
 
 void read_command ( char cmd[], char *par[] )
 

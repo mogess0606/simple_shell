@@ -8,4 +8,7 @@
 #include <errno.h>
 #include <sys/wait.h>
 
+void read_command ( char cmd[], char *par[] );
+void type_prompt();
+
 #endif

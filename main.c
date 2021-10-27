@@ -17,9 +17,9 @@ int main()
 	if ( fork() != 0 )
 	wait ( NULL );
 	else{
-		strcpy ( cmd, "/bin/" );
-		strcat ( cmd, command);
-		execve ( cmd, parameters, envp );
+		strcpy( cmd, "/bin/" );
+		strcat( cmd, command);
+		execve( cmd, parameters, envp );
 	}
 	if ( strcmp ( command, "exit") == 0)
 		break;

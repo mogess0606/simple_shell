@@ -1,15 +1,28 @@
 #include "shell.h"
 
-void type_prompt()
+int lsh_launch(char **args)
 {
-static int first_time = 1;
+  pid_t pid, wpid;
+  int status;
 
-if (first_time) { 
-const char* CLEAR_SCREEN_ANSI = " \e[1;1H\e[2J";
-write (STDOUT_FILENO, CLEAR_SCREEN_ANSI,12);
-first_time = 0;
+  pid = fork();
+  if (pid == 0) {
+    // Child process
+    if (execvp(args[0], args) == -1) {
+      perror("lsh");
+    }
+    exit(EXIT_FAILURE);
+  } else if (pid < 0) {
+    // Error forking
+    perror("lsh");
+  } else {
+    // Parent process
+    do {
+      wpid = waitpid(pid, &status, WUNTRACED);
+    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+  }
+
+  return 1;
 }
 
-printf("$"); 
 
-}

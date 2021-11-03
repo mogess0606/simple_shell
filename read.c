@@ -1,35 +1,40 @@
 #include "shell.h"
 
-void read_command ( char cmd[], char *par[] )
+#define LSH_RL_BUFSIZE 1024
+char *read_command(void)
 {
-char line[1024];
- int count = 0, i = 0;
-char *array[100], *pch;
+  int bufsize = LSH_RL_BUFSIZE;
+  int position = 0;
+  char *buffer = malloc(sizeof(char) * bufsize);
+  int c;
 
-/* Read one line */
-for ( ; ; ) {
-int c = fgetc (stdin);
-line[count ++] = (char) c;
-if (c =='\n') break;
+  if (!buffer) {
+    fprintf(stderr, "lsh: allocation error\n");
+    exit(EXIT_FAILURE);
+  }
+
+  while (1) {
+    // Read a character
+    c = getchar();
+
+    // If we hit EOF, replace it with a null character and return.
+    if (c == EOF || c == '\n') {
+      buffer[position] = '\0';
+      return buffer;
+    } else {
+      buffer[position] = c;
+    }
+    position++;
+
+    // If we have exceeded the buffer, reallocate.
+    if (position >= bufsize) {
+      bufsize += LSH_RL_BUFSIZE;
+      buffer = realloc(buffer, bufsize);
+      if (!buffer) {
+	fprintf(stderr, "lsh: allocation error\n");
+	exit(EXIT_FAILURE);
+      }
+    }
+  }
 }
-if (count == 1) return;
-pch = strtok (line, "\n" );
-
-/* parse the line into two words */
-
-while (pch != NULL) {
-array [i++] = strdup (pch);
-pch = strtok (NULL, "\n");
-}
-
-/* first wordd is the command */
-strcpy (cmd, array[0] );
-
-/* others are parameters */
-
-for (int j = 0; j < i; j++)
-par[j] = array[j];
-par[i] = NULL;
-}
-/*null terminates parameter list*/
 

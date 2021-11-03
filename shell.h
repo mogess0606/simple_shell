@@ -8,7 +8,9 @@
 #include <errno.h>
 #include <sys/wait.h>
 
-void read_command ( char cmd[], char *par[] );
+int lsh_launch(char **args);
+char **lsh_split_line(char *line);
+void read_command ();
 void type_prompt();
 
 #endif

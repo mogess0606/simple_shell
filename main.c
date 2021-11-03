@@ -8,22 +8,17 @@
 
 int main()
 {
-	char cmd[100], command[100], *parameters[20];
-	/* env var */
-	char *envp[] = { (char *) "PATH=/bin", 0 };
-	while ( 1 ) {
-	type_prompt();
-	read_command ( command, parameters );
-	if ( fork() != 0 )
-	wait ( NULL );
-	else{
-		strcpy( cmd, "/bin/" );
-		strcat( cmd, command);
-		execve( cmd, parameters, envp );
-	}
-	if ( strcmp ( command, "exit") == 0)
-		break;
-	}
+  char *line;
+  char **args;
+  int status;
 
-	return 0;
+  do {
+    printf("> ");
+    line = lsh_read_line();
+    args = lsh_split_line(line);
+    status = lsh_execute(args);
+
+    free(line);
+    free(args);
+  } while (status);
 }

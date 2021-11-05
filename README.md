@@ -1,2 +1,1 @@
-Implementation of shell in C programming language.
-
+Simple shell programming by Mogess Mekonnen Teshome and Abrham Getachew
